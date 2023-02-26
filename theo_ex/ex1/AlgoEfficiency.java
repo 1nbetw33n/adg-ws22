@@ -39,9 +39,11 @@ package adg.theo_ex.ex1;/*
  * Virgo Supercluster, Milky Way - Earth A-6847
  */
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.function.Function;
 
-import static java.lang.Math.log;
+import static java.lang.Math.*;
 
 final class AlgoEfficiency {
 
@@ -51,54 +53,80 @@ final class AlgoEfficiency {
         private AlgoEfficiency() {}
 
         /**
-         * method to get the ratio that needs to be applied to a constant in order to make the runtime of two algorithms equal at a given border value
-         * so that below the border value the first algorithm is faster and above the border value the second algorithm is faster
-         * @param border the border value where the runtime of the two algorithms shall be equal
-         * @param f1 algorithm 1
-         * @param f2 algorithm 2
+         * Alters the runtime of the faster algorithm by the given ratio.<br>
+         * Then compares the runtime of both algorithms around the given border value (+/- 1) and prints the results.<br>
+         * @param algo1 name of algorithm 1
+         * @param algo2 name of algorithm 2
+         * @param slower the slower algorithm
+         * @param faster the faster algorithm
          */
-        static void compare_runtime(final int border, final String algo1, final String algo2, final Function<Double, Double> f1, final Function<Double, Double> f2) {
+        static void alter_runtime(final double altered_ratio, final int border, final String algo1, final String algo2, final @NotNull Function<Double, Double> slower, final @NotNull Function<Double, Double> faster) {
                 var n = border - 1;
-                var c1 = 1.;
-                var c2 = 1.;
-                //multiply the ratio with .99 for border=10, .999 for border=100, .9999 for border=1000, etc. to prevent both algorithms from having the same runtime at the border value
-                var ratio = get_ratio(border, f1, f2) * Double.parseDouble("." + "9".repeat(("" + border).length()));
                 var val1 = 0.;
                 var val2 = 0.;
-                if (f1.apply((double) border) < f2.apply((double) border)) {
-                        c1 *= ratio;
-                } else {
-                        c2 *= ratio;
-                }
                 while (n <= border + 1) {
-                        val1 = c1 * f1.apply((double) n);
-                        val2 = c2 * f2.apply((double) n);
-                        System.out.println("n = " + n + " :: ");
-                        System.out.printf("\t\t\t" + algo1 + "\t\t\t::\t%.7fs\n", val1);
-                        System.out.printf("\t\t\t" + algo2 + "\t::\t%.7fs\n", val2);
-                        System.out.println("\t\t\tfaster\t\t::\t" + (val1 < val2 ? algo1 : algo2));
+                        val1 = slower.apply((double) n);
+                        val2 = altered_ratio * faster.apply((double) n);
+                        print_comparison(n, algo1, algo2, val1, val2);
                         n++;
                 }
-                System.out.println("------------------------------------");
-                System.out.println("ratio = " + get_ratio(border, f1, f2));
+                print_ratios(altered_ratio, get_ratio(border, slower, faster));
         }
 
         /**
-         * Calculates the ratio that needs to be applied to a constant in order to make the runtime of two algorithms equal at the given border value
-         * @param border the border value where the runtime of the two algorithms is equal
-         * @param f1 algorithm 1
-         * @param f2 algorithm 2
+         * Calls {@link #alter_runtime(double, int, String, String, Function, Function)}  and passes the slower function as first parameter and the faster function as second parameter<br>(so it doesn't matter what algorithm is passed as last parameter).<br>
+         * The faster algorithm is then multiplied with a multiplicative factor in order to slow it down enough to have a slower runtime at the given border value (and below) than the slower algorithm.<br>
+         * @param border the border value
+         * @param algo1 name of algorithm 1
+         * @param algo2 name of algorithm 2
+         * @param f1 runtime function of algorithm 1
+         * @param f2 runtime function of algorithm 2
+         */
+        static void alter_runtime(final int border, final String algo1, final String algo2, final @NotNull Function<Double, Double> f1, final @NotNull Function<Double, Double> f2) {
+                var slower = (f1.apply((double) border) < f2.apply((double) border)) ? f2 : f1;
+                var faster = (f1.apply((double) border) < f2.apply((double) border)) ? f1 : f2;
+                // multiply the ratio with .99 for border=10, .999 for border=100, .9999 for border=1000, etc. to prevent both algorithms from having the same runtime at the border value
+                var altered_ratio = get_ratio(border, f1, f2) * Double.parseDouble("." + "9".repeat(("" + border).length()));
+                alter_runtime(altered_ratio,border, algo1, algo2, slower, faster);
+        }
+
+        /**
+         * Calculates how much faster the faster algorithm is than the slower algorithm at the given border value.
+         * @param border the border value where the measurement is taken
+         * @param f1 runtime function of algorithm 1
+         * @param f2 runtime function of algorithm 2
          * @return the ratio
          */
-        static double get_ratio(final int border, final Function<Double, Double> f1, final Function<Double, Double> f2) {
-                var c1 = 1.;
-                var c2 = 1.;
-                if (f1.apply((double) border) > f2.apply((double) border)) {
-                        c1 = f1.apply((double) border) / f2.apply((double) border);
-                } else {
-                        c2 = f2.apply((double) border) / f1.apply((double) border);
-                }
-                return Math.max(c1, c2);
+        static double get_ratio(final int border, final @NotNull Function<Double, Double> f1, final @NotNull Function<Double, Double> f2) {
+                var val1 = f1.apply((double) border);
+                var val2 = f2.apply((double) border);
+                return Math.max(val1, val2) / Math.min(val1, val2);
+        }
+
+        /**
+         * Prints the runtime of two algorithms at a given border value.
+         * @param n the current value of n
+         * @param algo1 name of algorithm 1
+         * @param algo2 name of algorithm 2
+         * @param val1 runtime of algorithm 1
+         * @param val2 runtime of algorithm 2
+         */
+        static void print_comparison(final int n, final String algo1, final String algo2, final double val1, final double val2) {
+                System.out.println("n = " + n + " :: ");
+                System.out.printf("\t\t\t" + algo1 + "\t\t\t::\t%.7fs\n", val1);
+                System.out.printf("\t\t\t" + algo2 + "\t::\t%.7fs\n", val2);
+                System.out.println("\t\t\tfaster\t\t::\t" + (val1 < val2 ? algo1 : algo2));
+        }
+
+        /**
+         * Prints both ratios.
+         * @param og_ratio the original ratio
+         * @param altered_ratio the ratio multiplied with {@code ".999"}, etc.
+         */
+        private static void print_ratios(final double og_ratio, final double altered_ratio) {
+                System.out.println("------------------------------------");
+                System.out.println("equal runtime ratio\t\t::\t" + og_ratio);
+                System.out.println("altered ratio\t\t\t::\t" + altered_ratio);
         }
 
         public static void main(String... args) {
@@ -107,7 +135,7 @@ final class AlgoEfficiency {
                 var algo2 = "n * log(n)";
                 Function <Double, Double> f1 = n -> n * n;
                 Function <Double, Double> f2 = n -> n * log(n);
-                compare_runtime(border, algo1, algo2, f1, f2);
+                alter_runtime(border, algo1, algo2, f1, f2);
         }
 
 

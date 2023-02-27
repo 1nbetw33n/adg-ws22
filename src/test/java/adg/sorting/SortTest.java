@@ -37,6 +37,7 @@
 package adg.sorting;
 
 import misc.util.String_Parser;
+import misc.util.Util;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -68,13 +69,13 @@ final class SortTest {
          */
         private <T extends Comparable<? super T>> void sort_test(final Comparator<T> comp, final Sort sort, final T[] data, final T[][] exp_states) {
                 sort.sort(comp, data);
-                Assertions.assertEquals(0, sort.compare_expected_with_actual(exp_states, sort.get_states()));
+                Assertions.assertEquals(0, Util.compare_2D_arrays(exp_states, sort.get_states()));
 
         }
 
         @Test
         void swap_test() {
-                Bubble_Sort bubble_sort = new Bubble_Sort();
+                Sort bubble_sort = new Bubble();
                 var data = new Integer[]{1, 2, 3, 4, 5};
                 bubble_sort.swap(0, 1, data);
                 assert data[0] == 2;
@@ -84,10 +85,15 @@ final class SortTest {
 
 
         @ParameterizedTest(name = "{2}: {0}")
-        @CsvFileSource(resources = "/adg/sorting/bubble_sort_exp.csv", numLinesToSkip = 1, delimiter = ',')
+        @CsvFileSource(resources = "/adg/sorting/bubble.csv", numLinesToSkip = 1, delimiter = ',')
         void bubble_sort_test(final String input, final String exp_states, @SuppressWarnings("unused") final String desc) {
-                sort_test(new Bubble_Sort(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_states));
+                sort_test(new Bubble(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_states));
         }
 
+        @ParameterizedTest(name = "{2}: {0}")
+        @CsvFileSource(resources = "/adg/sorting/selection.csv", numLinesToSkip = 1, delimiter = ',')
+        void selection_sort_test(final String input, final String exp_states, @SuppressWarnings("unused") final String desc){
+                sort_test(new Selection(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_states));
+        }
 
 }

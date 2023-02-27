@@ -46,7 +46,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-abstract sealed class Sort permits Bubble_Sort {
+abstract sealed class Sort permits Bubble, Selection {
 
         private final List<Object[]> states = new ArrayList<>();
 
@@ -104,41 +104,6 @@ abstract sealed class Sort permits Bubble_Sort {
                         }
                 }
                 System.out.println(sb);
-        }
-
-        /**
-         * Calls {@link #compare_expected_with_actual(Comparator, Object[][], Object[][])} with {@link Comparator#naturalOrder()} as comparator.
-         * @param expected the expected 2D array (parsed from a file)
-         * @param actual the actual 2D array (calculated using the dedicated sort method)
-         * @return 0 if the arrays are equal, the difference of the length of the arrays otherwise
-         */
-        protected  <T extends Comparable<? super T>> int compare_expected_with_actual(final T[][] expected, final Object[][] actual){
-                return compare_expected_with_actual(Comparator.naturalOrder(), expected, actual);
-        }
-
-        /**
-         * Compares two 2D arrays.<br>
-         * Used for SortTest to compare the expected 2D array with the actual 2D array.<br>
-         * @param comp the comparator to be used
-         * @param expected the expected 2D array (parsed from a file)
-         * @param actual the actual 2D array (calculated using the dedicated sort method)
-         * @return 0 if the two arrays are equal, something else otherwise (+/- the difference of the length of the arrays)
-         */
-        @SuppressWarnings("unchecked")
-        protected <T> int compare_expected_with_actual(final Comparator<T> comp, final T[][] expected, final Object[][] actual){
-                if (expected.length != actual.length) {
-                        return expected.length - actual.length;
-                } else if (expected[0].length != actual[0].length) {
-                        return expected[0].length - actual[0].length;
-                }
-                for (var i = 0; i < expected.length; i++) {
-                        for (var j = 0; j < expected[i].length; j++) {
-                                if (comp.compare(expected[i][j], (T) actual[i][j]) != 0) {
-                                        return comp.compare(expected[i][j], (T) actual[i][j]);
-                                }
-                        }
-                }
-                return 0;
         }
 
 

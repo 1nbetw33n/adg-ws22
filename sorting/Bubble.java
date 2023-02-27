@@ -41,7 +41,7 @@ package adg.sorting;/*
 
 import java.util.Comparator;
 
-final class Bubble_Sort extends Sort{
+final class Bubble extends Sort{
 
 
     /**
@@ -73,7 +73,7 @@ final class Bubble_Sort extends Sort{
 
     public static void main(String... args) {
             var data = new Integer[]{2,12,5,9,21,10,6,28,30,1,20};
-            var bubble_sort = new Bubble_Sort();
+            var bubble_sort = new Bubble();
             bubble_sort.sort((data));
 
     }

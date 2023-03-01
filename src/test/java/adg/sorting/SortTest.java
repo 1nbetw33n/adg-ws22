@@ -37,12 +37,12 @@
 package adg.sorting;
 
 import misc.util.String_Parser;
-import misc.util.Util;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
+import java.util.Arrays;
 import java.util.Comparator;
 
 /*
@@ -67,11 +67,15 @@ final class SortTest {
          * @param sort the sorting algorithm that will be tested
          * @param data the data that will be sorted
          */
+        @SuppressWarnings("unchecked")
         private <T extends Comparable<? super T>> void sort_test(final Comparator<T> comp, final Sort sort, final T[] data, final T[][] exp_states) {
-                sort.sort(comp, data);
-                Assertions.assertEquals(0, Util.compare_2D_arrays(exp_states, sort.get_states()));
-
+                sort.sort(data);
+                var actual_states = sort.get_states();
+                for (var i = 0; i < exp_states.length; i++) {
+                        Assertions.assertEquals(0, Arrays.compare(exp_states[i], (T[]) actual_states[i], comp));
+                }
         }
+
 
         @Test
         void swap_test() {

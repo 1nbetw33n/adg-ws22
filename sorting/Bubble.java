@@ -43,40 +43,32 @@ import java.util.Comparator;
 
 final class Bubble extends Sort{
 
-
-    /**
-     * Implementation of bubble sort in place (no auxiliary data structure used).<br>
-     * Basic logic:<br>
-     * The algorithm iterates over the data and compares {@code i} and {@code i+1}.<br>
-     * If {@code i} is greater than {@code i+1}, the elements are swapped.<br>
-     * So the largest element is bubbled to the end of the array in each iteration.<br>
-     * The algorithm iterates over the data until no swaps are made anymore.<br>
-     * @param data the data that will be sorted
-     * @param comp the comparator that is used to compare the elements
-     */
-    protected <T extends Comparable<? super T>> void sort(final Comparator<T> comp, final T[] data) {
-            var pos = data.length - 1;
-            while (pos > 0) {
-                    var border = pos;
-                    pos = 0;
-                    write_current_state(data);
-                    for (var i = 0; i < border; i++) {
-                            if (comp.compare(data[i], data[i + 1]) > 0) {
-                                    swap(i, i + 1, data);
-                                    pos = i;
-                            }
-                    }
-            }
-            write_current_state(data);
-            print_states();
-    }
-
-    public static void main(String... args) {
-            var data = new Integer[]{2,12,5,9,21,10,6,28,30,1,20};
-            var bubble_sort = new Bubble();
-            bubble_sort.sort((data));
-
-    }
+        /**
+         * Implementation of bubble sort in place (no auxiliary data structure used).<br>
+         * Basic logic:<br>
+         * The algorithm iterates over the data and compares {@code i} and {@code i+1}.<br>
+         * If {@code i} is greater than {@code i+1}, the elements are swapped.<br>
+         * So the largest element is bubbled to the end of the array in each iteration.<br>
+         * The algorithm iterates over the data until no swaps are made anymore.<br>
+         * @param data the data that will be sorted
+         * @param comp the comparator that is used to compare the elements
+         */
+        protected <T extends Comparable<? super T>> void sort(final Comparator<T> comp, final T[] data) {
+                var pos = data.length - 1;
+                while (pos > 0) {
+                        var border = pos;
+                        pos = 0;
+                        write_current_state(data);
+                        for (var i = 0; i < border; i++) {
+                                if (comp.compare(data[i], data[i + 1]) > 0) {
+                                        swap(i, i + 1, data);
+                                        pos = i;
+                                }
+                        }
+                }
+                write_current_state(data);
+                print_states();
+        }
 
 
 }

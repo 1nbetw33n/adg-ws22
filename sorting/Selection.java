@@ -43,24 +43,22 @@ import java.util.Comparator;
 
 final class Selection extends Sort {
 
-    protected <T extends Comparable<? super T>> void sort(final Comparator<T> comp, final T[] data){
-        for (var i = 0; i < data.length -1; i++) {
-            swap(i, minPos(i, data), data);
-        }
-    }
-
-
+    /**
+     * Calls {@link #minPos(Comparator, int, Comparable[])} with {@link Comparator#naturalOrder()} as default comparator.
+     * @param i start index
+     * @param data data to search in
+     * @return index of the smallest element in this subset of data
+     */
     private <T extends Comparable<? super T>> int minPos(final int i,  final T[] data) {
         return minPos(Comparator.naturalOrder(), i, data);
     }
 
     /**
-     *
-     * @param comp
-     * @param i
-     * @param data
-     * @return
-     * @param <T>
+     * Gets a start index from where to search for the smallest element in that subset of data.
+     * @param comp comparator to use
+     * @param i start index
+     * @param data data to search in
+     * @return index of the smallest element in this subset of data
      */
     private <T extends Comparable<? super T>> int minPos(final Comparator<T> comp, final int i, final T[] data){
         var pos = i;
@@ -69,7 +67,29 @@ final class Selection extends Sort {
         }
         return pos;
     }
-    
+
+    /**
+     * Implementation of selection sort in place (no auxillary data structure used).
+     * Basic logic:<br>
+     * The algorithm divides the data into two subsets: sorted and unsorted.<br>
+     * The algorithm iterates over the unsorted subset and finds the smallest element.<br>
+     * The smallest element is then swapped with the first element of the unsorted subset.<br>
+     * So the smallest elements are being moved to the beginning of the data.<br>
+     * The algorithm iterates over the data until the unsorted subset is empty.<br>
+     * @param comp comparator that is used to compare the elements
+     * @param data data that will be sorted
+     */
+
+    protected <T extends Comparable<? super T>> void sort(final Comparator<T> comp, final T[] data){
+        for (var i = 0; i < data.length -1; i++) {
+            write_current_state(data);
+            swap(i, minPos(i, data), data);
+        }
+        write_current_state(data);
+        write_current_state(data);
+        print_states();
+    }
+
     
 }
     

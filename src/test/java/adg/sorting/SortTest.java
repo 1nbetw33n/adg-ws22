@@ -87,17 +87,44 @@ final class SortTest {
                 assert data[2] == 1;
         }
 
+        /**
+         * Tests the implementation of selection sort with inputs and expected states from selection.csv.
+         * @param input the input data
+         * @param exp_states the expected states of the algorithm
+         * @param desc the description of the test
+         */
+        @ParameterizedTest(name = "{2}: {0}")
+        @CsvFileSource(resources = "/adg/sorting/selection.csv", numLinesToSkip = 1, delimiter = ',')
+        void selection_sort_test(final String input, final String exp_states, @SuppressWarnings("unused") final String desc){
+                sort_test(new Selection(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_states));
+        }
 
+        /**
+         * Tests the implementartion of insertion sort with inputs and expected states from insertion.csv.
+         * @param input the input data
+         * @param exp_states the expected states of the algorithm
+         * @param desc the description of the test
+         */
+        @ParameterizedTest(name = "{2}: {0}")
+        @CsvFileSource(resources = "/adg/sorting/insertion.csv", numLinesToSkip = 1, delimiter = ',')
+        void insertion_sort_test(final String input, final String exp_states, @SuppressWarnings("unused") final String desc) {
+                sort_test(new Insertion(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_states));
+        }
+
+        /**
+         * Tests the implementation of bubble sort with inputs and expected states from bubble.csv.
+         * @param input the input data
+         * @param exp_states the expected states of the algorithm
+         * @param desc the description of the test
+         */
         @ParameterizedTest(name = "{2}: {0}")
         @CsvFileSource(resources = "/adg/sorting/bubble.csv", numLinesToSkip = 1, delimiter = ',')
         void bubble_sort_test(final String input, final String exp_states, @SuppressWarnings("unused") final String desc) {
                 sort_test(new Bubble(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_states));
         }
 
-        @ParameterizedTest(name = "{2}: {0}")
-        @CsvFileSource(resources = "/adg/sorting/selection.csv", numLinesToSkip = 1, delimiter = ',')
-        void selection_sort_test(final String input, final String exp_states, @SuppressWarnings("unused") final String desc){
-                sort_test(new Selection(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_states));
-        }
+
+
+
 
 }

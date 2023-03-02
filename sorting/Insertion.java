@@ -50,9 +50,10 @@ final class Insertion extends Sort {
          * and <a href="https://www.geeksforgeeks.org/adaptive-and-non-adaptive-sorting-algorithms/">adaptive</a>
          * and <a href="https://en.wikipedia.org/wiki/In-place_algorithm/">in-place</a>.<br>
          * Basic logic:<br>
-         * TODO: write basic logic
-         *       add testdata
-         *       add test
+         * The algorithm iterates over the data.
+         * For each element {@code i} it iterates over the elements {@code j} from {@code i} to {@code 0}.
+         * If {@code j} is greater than {@code j-1}, the elements are swapped.<br>
+         * So the smallest element is moved to the beginning of the array in each iteration.<br>
          * @param comp the comparator that is used to compare the elements
          * @param data the data that will be sorted
          */

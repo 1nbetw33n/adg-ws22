@@ -46,7 +46,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-abstract sealed class Sort permits Bubble, Selection {
+abstract sealed class Sort permits Bubble, Insertion, Selection {
 
         private final List<Object[]> states = new ArrayList<>();
 

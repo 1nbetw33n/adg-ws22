@@ -44,7 +44,10 @@ import java.util.Comparator;
 final class Bubble extends Sort{
 
         /**
-         * Implementation of bubble sort in place (no auxiliary data structure used).<br>
+         * Implementation of bubble sort.<br>
+         * The Algorithm is <a href="https://www.geeksforgeeks.org/stable-and-unstable-sorting-algorithms/?type=article&id=10109">stable</a>
+         * and <a href="https://www.geeksforgeeks.org/adaptive-and-non-adaptive-sorting-algorithms/">adaptive</a>
+         * and <a href="https://en.wikipedia.org/wiki/In-place_algorithm/">in-place</a>.<br>
          * Basic logic:<br>
          * The algorithm iterates over the data and compares {@code i} and {@code i+1}.<br>
          * If {@code i} is greater than {@code i+1}, the elements are swapped.<br>

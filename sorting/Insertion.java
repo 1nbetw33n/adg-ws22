@@ -68,9 +68,4 @@ final class Insertion extends Sort {
         }
 
 
-        public static void main(String... args) {
-                var data = new Integer[]{5,15,33,28,32,24,30,3,35,10,7};
-                new Insertion().sort(data);
-        }
-
 }

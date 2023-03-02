@@ -61,15 +61,18 @@ final class Selection extends Sort {
      * @return index of the smallest element in this subset of data
      */
     private <T extends Comparable<? super T>> int minPos(final Comparator<T> comp, final int i, final T[] data){
-        var pos = i;
+        var min = i;
         for (var j = i + 1; j < data.length; j++) {
-            if (comp.compare(data[pos], data[j]) > 0) {pos = j;}
+            if (comp.compare(data[min], data[j]) > 0) {min = j;}
         }
-        return pos;
+        return min;
     }
 
     /**
-     * Implementation of selection sort in place (no auxillary data structure used).
+     * Implementation of selection sort.<br>
+     * The Algorithm is <a href="https://www.geeksforgeeks.org/stable-and-unstable-sorting-algorithms/?type=article&id=10109">not stable</a>
+     * and <a href="https://www.geeksforgeeks.org/adaptive-and-non-adaptive-sorting-algorithms/">non-adaptive</a>
+     * and <a href="https://en.wikipedia.org/wiki/In-place_algorithm/">in-place</a>.<br>
      * Basic logic:<br>
      * The algorithm divides the data into two subsets: sorted and unsorted.<br>
      * The algorithm iterates over the unsorted subset and finds the smallest element.<br>
@@ -90,6 +93,6 @@ final class Selection extends Sort {
         print_states();
     }
 
-    
+
 }
     

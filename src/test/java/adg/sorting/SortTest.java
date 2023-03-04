@@ -68,7 +68,7 @@ final class SortTest {
          * @param data the data that will be sorted
          */
         @SuppressWarnings("unchecked")
-        private <T extends Comparable<? super T>> void sort_test(final Comparator<T> comp, final Sort sort, final T[] data, final T[][] exp_states) {
+        private <T extends Comparable<? super T>> void sort_test(final Comparator<? super T> comp, final Sort sort, final T[] data, final T[][] exp_states) {
                 sort.sort(data);
                 var actual_states = sort.get_states();
                 for (var i = 0; i < exp_states.length; i++) {
@@ -123,8 +123,17 @@ final class SortTest {
                 sort_test(new Bubble(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_states));
         }
 
-
-
+        /**
+         * Tests the implementation of merge sort with inputs and expected states from merge.csv.
+         * @param input the input data
+         * @param exp_states the expected states of the algorithm
+         * @param desc the description of the test
+         */
+        @ParameterizedTest(name = "{2}: {0}")
+        @CsvFileSource(resources = "/adg/sorting/merge.csv", numLinesToSkip = 1, delimiter = ',')
+        void merge_sort_test(final String input, final String exp_states, @SuppressWarnings("unused") final String desc) {
+                sort_test(new Merge(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_states));
+        }
 
 
 }

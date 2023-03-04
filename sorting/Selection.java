@@ -43,30 +43,6 @@ import java.util.Comparator;
 
 final class Selection extends Sort {
 
-    /**
-     * Calls {@link #minPos(Comparator, int, Object[])} with {@link Comparator#naturalOrder()} as default comparator.
-     * @param i start index
-     * @param data data to search in
-     * @return index of the smallest element in this subset of data
-     */
-    private <T extends Comparable<? super T>> int minPos(final int i,  final T[] data) {
-        return minPos(Comparator.naturalOrder(), i, data);
-    }
-
-    /**
-     * Gets a start index from where to search for the smallest element in that subset of data.
-     * @param comp comparator to use
-     * @param i start index
-     * @param data data to search in
-     * @return index of the smallest element in this subset of data
-     */
-    private <T> int minPos(final Comparator<? super T> comp, final int i, final T[] data){
-        var min = i;
-        for (var j = i + 1; j < data.length; j++) {
-            if (comp.compare(data[min], data[j]) > 0) {min = j;}
-        }
-        return min;
-    }
 
     /**
      * Implementation of selection sort.<br>
@@ -82,7 +58,6 @@ final class Selection extends Sort {
      * @param comp comparator that is used to compare the elements
      * @param data data that will be sorted
      */
-
     protected <T> void sort(final Comparator<? super T> comp, final T[] data){
         for (var i = 0; i < data.length -1; i++) {
             write_current_state(data);

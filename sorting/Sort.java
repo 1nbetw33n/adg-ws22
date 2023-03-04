@@ -46,7 +46,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-abstract sealed class Sort permits Bubble, Insertion, Selection {
+abstract sealed class Sort permits Bubble, Insertion, Merge, Selection {
 
         private final List<Object[]> states = new ArrayList<>();
 
@@ -57,10 +57,10 @@ abstract sealed class Sort permits Bubble, Insertion, Selection {
          * @param comp the comparator that is used to compare the elements
          * @param data the data that will be sorted
          */
-        protected abstract <T extends Comparable<? super T>> void sort(final Comparator<T> comp, final T[] data);
+        protected abstract <T> void sort(final Comparator<? super T> comp, final T[] data);
 
         /**
-         * Calls {@link #sort(Comparator, Comparable[])} with {@link Comparator#naturalOrder()} as comparator.
+         * Calls {@link #sort(Comparator, Object[])} with {@link Comparator#naturalOrder()} as comparator.
          * @param data the data that will be sorted
          */
         protected <T extends Comparable<? super T>> void sort(final T[] data) {
@@ -73,7 +73,7 @@ abstract sealed class Sort permits Bubble, Insertion, Selection {
          * @param i the index of the first element
          * @param j the index of the second element
          */
-        protected <T extends Comparable<? super T>> void swap(final int i, final int j, final T[] data) {
+        protected <T> void swap(final int i, final int j, final T[] data) {
                 final T tmp = data[i];
                 data[i] = data[j];
                 data[j] = tmp;
@@ -82,7 +82,7 @@ abstract sealed class Sort permits Bubble, Insertion, Selection {
         /**
          * Writes the current state of the data to {@link #states} {@code (List<String>)}.
          */
-        protected final <T extends Comparable<? super T>> void write_current_state(final T[] data) {
+        protected final <T> void write_current_state(final T[] data) {
                 states.add(Arrays.copyOf(data, data.length));
         }
 

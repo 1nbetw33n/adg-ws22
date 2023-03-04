@@ -57,7 +57,7 @@ final class Insertion extends Sort {
          * @param comp the comparator that is used to compare the elements
          * @param data the data that will be sorted
          */
-        protected <T extends Comparable<? super T>> void sort(final Comparator<T> comp, final T[] data) {
+        protected <T> void sort(final Comparator<? super T> comp, final T[] data) {
                 for (var i = 1; i < data.length; i++) {
                         write_current_state(data);
                         for (var j = i; j > 0 && comp.compare((data[j - 1]), (data[j])) > 0; j--) {

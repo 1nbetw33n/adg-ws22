@@ -56,7 +56,7 @@ final class Bubble extends Sort{
          * @param data the data that will be sorted
          * @param comp the comparator that is used to compare the elements
          */
-        protected <T extends Comparable<? super T>> void sort(final Comparator<T> comp, final T[] data) {
+        protected <T> void sort(final Comparator<? super T> comp, final T[] data) {
                 var pos = data.length - 1;
                 while (pos > 0) {
                         var border = pos;

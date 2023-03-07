@@ -3,7 +3,7 @@
 <br>
 <div>
 <details>
-<summary><h3>Sorting Algorithms</h3></summary>
+<summary><h2>Sorting Algorithms</h2></summary>
 To use the algorithms you can use the <kbd>main()</kbd> in this class :: <kbd>src/main/java/adg/sorting/Main.java</kbd><br>
 The sorting algorithms will produce the different states that occured while performing the algorithm.<br>
 for example ::<br>

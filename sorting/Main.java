@@ -114,7 +114,7 @@ final class Main {
                         case "2" -> new Insertion();
                         case "3" -> new Bubble();
                         case "4" -> new Merge();
-                        //case "5" -> new Quick();
+                        case "5" -> new Quick();
                         //case "6": -> new Heap();
                         default -> null;
                 };
@@ -127,9 +127,9 @@ final class Main {
         private void select(final Main main) {
                 System.out.println("Do you want to generate random data? [Y/n] ::");
                 var answer = sc.nextLine();
-                if (answer.equals("y")) {
+                if (answer.equalsIgnoreCase("y")) {
                         generate_random_data();
-                } else if (answer.equals("n")) {
+                } else if (answer.equalsIgnoreCase("n")) {
                         use_custom_data();
                 } else {
 

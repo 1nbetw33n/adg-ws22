@@ -57,22 +57,22 @@ final class SortTest {
          * @param sort the sorting algorithm that will be tested
          * @param data the data that will be sorted
          */
-        private <T extends Comparable<? super T>> void sort_test(final Sort sort, final T[] data, final T[][] exp_states) {
-                sort_test(Comparator.naturalOrder(), sort, data, exp_states);
+        private <T extends Comparable<? super T>> void sort_test(final Sort sort, final T[] data, final T[][] exp_snaps) {
+                sort_test(Comparator.naturalOrder(), sort, data, exp_snaps);
         }
 
         /**
-         * Tests the sorting algorithm with the given inputs and expected outputs.
+         * Tests the sorting algorithm with the given inputs and expected snapshots.
          * @param comp the comparator that is used to compare the elements
          * @param sort the sorting algorithm that will be tested
          * @param data the data that will be sorted
          */
         @SuppressWarnings("unchecked")
-        private <T extends Comparable<? super T>> void sort_test(final Comparator<? super T> comp, final Sort sort, final T[] data, final T[][] exp_states) {
+        private <T extends Comparable<? super T>> void sort_test(final Comparator<? super T> comp, final Sort sort, final T[] data, final T[][] exp_snaps) {
                 sort.sort(data);
-                var actual_states = sort.get_states();
-                for (var i = 0; i < exp_states.length; i++) {
-                        Assertions.assertEquals(0, Arrays.compare(exp_states[i], (T[]) actual_states[i], comp));
+                var actual_snaps = sort.get_snapshots();
+                for (var i = 0; i < exp_snaps.length; i++) {
+                        Assertions.assertEquals(0, Arrays.compare(exp_snaps[i], (T[]) actual_snaps[i], comp));
                 }
         }
 
@@ -88,52 +88,63 @@ final class SortTest {
         }
 
         /**
-         * Tests the implementation of selection sort with inputs and expected states from selection.csv.
+         * Tests the implementation of selection sort with inputs and expected snapshots from selection.csv.
          * @param input the input data
-         * @param exp_states the expected states of the algorithm
+         * @param exp_snaps the expected snapshots of the order of the data that it had while sorting
          * @param desc the description of the test
          */
         @ParameterizedTest(name = "{2}: {0}")
         @CsvFileSource(resources = "/adg/sorting/selection.csv", numLinesToSkip = 1, delimiter = ',')
-        void selection_sort_test(final String input, final String exp_states, @SuppressWarnings("unused") final String desc){
-                sort_test(new Selection(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_states));
+        void selection_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc){
+                sort_test(new Selection(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_snaps));
         }
 
         /**
-         * Tests the implementartion of insertion sort with inputs and expected states from insertion.csv.
+         * Tests the implementartion of insertion sort with inputs and expected snapshots from insertion.csv.
          * @param input the input data
-         * @param exp_states the expected states of the algorithm
+         * @param exp_snaps the expected snapshots of the order of the data that it had while sorting
          * @param desc the description of the test
          */
         @ParameterizedTest(name = "{2}: {0}")
         @CsvFileSource(resources = "/adg/sorting/insertion.csv", numLinesToSkip = 1, delimiter = ',')
-        void insertion_sort_test(final String input, final String exp_states, @SuppressWarnings("unused") final String desc) {
-                sort_test(new Insertion(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_states));
+        void insertion_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc) {
+                sort_test(new Insertion(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_snaps));
         }
 
         /**
-         * Tests the implementation of bubble sort with inputs and expected states from bubble.csv.
+         * Tests the implementation of bubble sort with inputs and expected snapshots from bubble.csv.
          * @param input the input data
-         * @param exp_states the expected states of the algorithm
+         * @param exp_snaps the expected snapshots of the order of the data that it had while sorting
          * @param desc the description of the test
          */
         @ParameterizedTest(name = "{2}: {0}")
         @CsvFileSource(resources = "/adg/sorting/bubble.csv", numLinesToSkip = 1, delimiter = ',')
-        void bubble_sort_test(final String input, final String exp_states, @SuppressWarnings("unused") final String desc) {
-                sort_test(new Bubble(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_states));
+        void bubble_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc) {
+                sort_test(new Bubble(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_snaps));
         }
 
         /**
-         * Tests the implementation of merge sort with inputs and expected states from merge.csv.
+         * Tests the implementation of merge sort with inputs and expected snapshots from merge.csv.
          * @param input the input data
-         * @param exp_states the expected states of the algorithm
+         * @param exp_snaps the expected snapshots of the order of the data that it had while sorting
          * @param desc the description of the test
          */
         @ParameterizedTest(name = "{2}: {0}")
         @CsvFileSource(resources = "/adg/sorting/merge.csv", numLinesToSkip = 1, delimiter = ',')
-        void merge_sort_test(final String input, final String exp_states, @SuppressWarnings("unused") final String desc) {
-                sort_test(new Merge(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_states));
+        void merge_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc) {
+                sort_test(new Merge(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_snaps));
         }
 
+        /**
+         * Tests the implementation of quick sort with inputs and expected snapshots from quick.csv.
+         * @param input the input data
+         * @param exp_snaps the expected snapshots of the order of the data that it had while sorting
+         * @param desc the description of the test
+         */
+        @ParameterizedTest(name = "{2}: {0}")
+        @CsvFileSource(resources = "/adg/sorting/quick.csv", numLinesToSkip = 1, delimiter = ',')
+        void quick_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc) {
+                sort_test(new Quick(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_snaps));
+        }
 
 }

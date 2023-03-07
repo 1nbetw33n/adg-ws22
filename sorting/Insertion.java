@@ -59,13 +59,13 @@ final class Insertion extends Sort {
          */
         protected <T> void sort(final Comparator<? super T> comp, final T[] data) {
                 for (var i = 1; i < data.length; i++) {
-                        write_current_state(data);
+                        take_snapshot(data);
                         for (var j = i; j > 0 && comp.compare((data[j - 1]), (data[j])) > 0; j--) {
                                 swap(j - 1, j, data);
                         }
                 }
-                write_current_state(data);
-                print_states();
+                take_snapshot(data);
+                print_snapshots();
         }
 
 

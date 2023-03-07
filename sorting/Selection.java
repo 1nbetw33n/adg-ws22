@@ -60,16 +60,16 @@ final class Selection extends Sort {
      */
     protected <T> void sort(final Comparator<? super T> comp, final T[] data){
         for (var i = 0; i < data.length -1; i++) {
-            write_current_state(data);
+            take_snapshot(data);
             var min = i;
                 for (var j = i + 1; j < data.length; j++) {
                         if (comp.compare(data[min], data[j]) > 0) {min = j;}
                 }
             swap(i, min, data);
         }
-        write_current_state(data);
-        write_current_state(data);
-        print_states();
+        take_snapshot(data);
+        take_snapshot(data);
+        print_snapshots();
     }
 
 

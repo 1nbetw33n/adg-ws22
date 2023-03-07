@@ -46,9 +46,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-abstract sealed class Sort permits Bubble, Insertion, Merge, Selection {
+abstract sealed class Sort permits Bubble, Insertion, Merge, Quick, Selection {
 
-        private final List<Object[]> states = new ArrayList<>();
+        private final List<Object[]> snapshots = new ArrayList<>();
 
 
         /**
@@ -68,7 +68,7 @@ abstract sealed class Sort permits Bubble, Insertion, Merge, Selection {
         }
 
         /**
-         * swaps two elements in an array in place (without an auxiliary data structure)
+         * Swaps two elements in an array <a href="https://en.wikipedia.org/wiki/In-place_algorithm/">in-place</a>.
          * @param data the data whose elements will be swapped
          * @param i the index of the first element
          * @param j the index of the second element
@@ -80,27 +80,27 @@ abstract sealed class Sort permits Bubble, Insertion, Merge, Selection {
         }
 
         /**
-         * Writes the current state of the data to {@link #states} {@code (List<String>)}.
+         * Takes a snapshot of the current order of the data and appends it to  {@link #snapshots} {@code (List<Object[]>)}.
          */
-        protected final <T> void write_current_state(final T[] data) {
-                states.add(Arrays.copyOf(data, data.length));
+        protected final <T> void take_snapshot(final T[] data) {
+                snapshots.add(Arrays.copyOf(data, data.length));
         }
 
         /**
-         * Parses {@link #states} {@code (List<String>)} to an Object[][].
-         * @return states as Object[][]
+         * Parses {@link #snapshots} {@code (List<Object[]>)} to an Object[][].
+         * @return snapshots as Object[][]
          */
-        protected Object[][] get_states() {
-                return states.toArray(Object[][]::new);
+        protected Object[][] get_snapshots() {
+                return snapshots.toArray(Object[][]::new);
         }
 
-        protected void print_states() {
+        protected void print_snapshots() {
                 var sb = new StringBuilder("{").append(System.lineSeparator());
-                for (var i = 0; i < states.size(); i++) {
-                        if (i < states.size() - 1) {
-                                sb.append(Array_Parser.to_string(states.get(i))).append(",").append(System.lineSeparator());
+                for (var i = 0; i < snapshots.size(); i++) {
+                        if (i < snapshots.size() - 1) {
+                                sb.append(Array_Parser.to_string(snapshots.get(i))).append(",").append(System.lineSeparator());
                         } else {
-                                sb.append(Array_Parser.to_string(states.get(i))).append(System.lineSeparator()).append("}");
+                                sb.append(Array_Parser.to_string(snapshots.get(i))).append(System.lineSeparator()).append("}");
                         }
                 }
                 System.out.println(sb);

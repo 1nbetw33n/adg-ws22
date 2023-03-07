@@ -61,7 +61,7 @@ final class Bubble extends Sort{
                 while (pos > 0) {
                         var border = pos;
                         pos = 0;
-                        write_current_state(data);
+                        take_snapshot(data);
                         for (var i = 0; i < border; i++) {
                                 if (comp.compare(data[i], data[i + 1]) > 0) {
                                         swap(i, i + 1, data);
@@ -69,8 +69,8 @@ final class Bubble extends Sort{
                                 }
                         }
                 }
-                write_current_state(data);
-                print_states();
+                take_snapshot(data);
+                print_snapshots();
         }
 
 

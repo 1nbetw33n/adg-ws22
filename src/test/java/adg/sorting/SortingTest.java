@@ -44,13 +44,14 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.stream.IntStream;
 
 /*
  * Created by 0x1nbetw33n on 22. Feb   2023
  * Virgo Supercluster, Milky Way - Earth A-6847
  */
 
-final class SortTest {
+final class SortingTest {
 
         /**
          * Calls {@link #sort_test(Comparator, Sort, Comparable[], Comparable[][])} with {@link Comparator#naturalOrder()} as comparator.
@@ -70,17 +71,20 @@ final class SortTest {
         @SuppressWarnings("unchecked")
         private <T extends Comparable<? super T>> void sort_test(final Comparator<? super T> comp, final Sort sort, final T[] data, final T[][] exp_snaps) {
                 sort.sort(data);
-                var actual_snaps = sort.get_snapshots();
-                for (var i = 0; i < exp_snaps.length; i++) {
-                        Assertions.assertEquals(0, Arrays.compare(exp_snaps[i], (T[]) actual_snaps[i], comp));
-                }
+                Object[][] actual_snaps = sort.get_snapshots();
+                IntStream.range(0, exp_snaps.length)
+                        .forEach(i -> Assertions.assertEquals(
+                                0,
+                                Arrays.compare(exp_snaps[i], (T[]) actual_snaps[i], comp)
+                                )
+                        );
         }
 
 
         @Test
         void swap_test() {
                 Sort bubble_sort = new Bubble();
-                var data = new Integer[]{1, 2, 3, 4, 5};
+                final Integer[] data = new Integer[]{1, 2, 3, 4, 5};
                 bubble_sort.swap(0, 1, data);
                 assert data[0] == 2;
                 bubble_sort.swap(1, 2, data);
@@ -94,9 +98,9 @@ final class SortTest {
          * @param desc the description of the test
          */
         @ParameterizedTest(name = "{2}: {0}")
-        @CsvFileSource(resources = "/adg/sorting/selection.csv", numLinesToSkip = 1, delimiter = ',')
+        @CsvFileSource(resources = "/adg/sorting/selection.csv", numLinesToSkip = 1, delimiter = ';')
         void selection_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc){
-                sort_test(new Selection(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_snaps));
+                sort_test(new Selection(), String_Parser.to_intArray(input), String_Parser.to_intArray_2D(exp_snaps));
         }
 
         /**
@@ -106,9 +110,9 @@ final class SortTest {
          * @param desc the description of the test
          */
         @ParameterizedTest(name = "{2}: {0}")
-        @CsvFileSource(resources = "/adg/sorting/insertion.csv", numLinesToSkip = 1, delimiter = ',')
+        @CsvFileSource(resources = "/adg/sorting/insertion.csv", numLinesToSkip = 1, delimiter = ';')
         void insertion_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc) {
-                sort_test(new Insertion(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_snaps));
+                sort_test(new Insertion(), String_Parser.to_intArray(input), String_Parser.to_intArray_2D(exp_snaps));
         }
 
         /**
@@ -118,9 +122,9 @@ final class SortTest {
          * @param desc the description of the test
          */
         @ParameterizedTest(name = "{2}: {0}")
-        @CsvFileSource(resources = "/adg/sorting/bubble.csv", numLinesToSkip = 1, delimiter = ',')
+        @CsvFileSource(resources = "/adg/sorting/bubble.csv", numLinesToSkip = 1, delimiter = ';')
         void bubble_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc) {
-                sort_test(new Bubble(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_snaps));
+                sort_test(new Bubble(), String_Parser.to_intArray(input), String_Parser.to_intArray_2D(exp_snaps));
         }
 
         /**
@@ -130,9 +134,9 @@ final class SortTest {
          * @param desc the description of the test
          */
         @ParameterizedTest(name = "{2}: {0}")
-        @CsvFileSource(resources = "/adg/sorting/merge.csv", numLinesToSkip = 1, delimiter = ',')
+        @CsvFileSource(resources = "/adg/sorting/merge.csv", numLinesToSkip = 1, delimiter = ';')
         void merge_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc) {
-                sort_test(new Merge(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_snaps));
+                sort_test(new Merge(), String_Parser.to_intArray(input), String_Parser.to_intArray_2D(exp_snaps));
         }
 
         /**
@@ -142,9 +146,34 @@ final class SortTest {
          * @param desc the description of the test
          */
         @ParameterizedTest(name = "{2}: {0}")
-        @CsvFileSource(resources = "/adg/sorting/quick.csv", numLinesToSkip = 1, delimiter = ',')
+        @CsvFileSource(resources = "/adg/sorting/quick.csv", numLinesToSkip = 1, delimiter = ';')
         void quick_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc) {
-                sort_test(new Quick(), String_Parser.to_integer_array(input), String_Parser.to_integer_2D_array(exp_snaps));
+                sort_test(new Quick(), String_Parser.to_intArray(input), String_Parser.to_intArray_2D(exp_snaps));
         }
+
+        /**
+         * Tests the implementation of ascending heap sort with inputs and expected snapshots from asc_heap.csv.
+         * @param input the input data
+         * @param exp_snaps the expected snapshots of the order of the data that it had while sorting
+         * @param desc the description of the test
+         */
+        @ParameterizedTest(name = "{2}: {0}")
+        @CsvFileSource(resources = "/adg/sorting/asc_heap.csv", numLinesToSkip = 1, delimiter = ';')
+        void asc_heap_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc) {
+                sort_test(Comparator.naturalOrder(), new Heap(), String_Parser.to_intArray(input), String_Parser.to_intArray_2D(exp_snaps));
+        }
+
+        /**
+         * Tests the implementation of descending heap sort with inputs and expected snapshots from desc_heap.csv.
+         * @param input the input data
+         * @param exp_snaps the expected snapshots of the order of the data that it had while sorting
+         * @param desc the description of the test
+         */
+        @ParameterizedTest(name = "{2}: {0}")
+        @CsvFileSource(resources = "/adg/sorting/desc_heap.csv", numLinesToSkip = 1, delimiter = ';')
+        void desc_heap_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc) {
+                sort_test(Comparator.reverseOrder(), new Heap(), String_Parser.to_intArray(input), String_Parser.to_intArray_2D(exp_snaps));
+        }
+
 
 }

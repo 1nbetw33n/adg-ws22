@@ -72,10 +72,10 @@ final class Quick extends Sort{
 		if (start >= end) {
 			return;
 		}
-		var piv = pivot(start, end);
+		int piv = pivot(start, end);
 		swap(piv, end, data);
-		var left = start;
-		var right = end - 1;
+		int left = start;
+		int right = end - 1;
 		do {
 			while (left <= right && comp.compare(data[left], data[end]) < 0) {
 				left++;

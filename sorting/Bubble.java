@@ -57,12 +57,12 @@ final class Bubble extends Sort{
          * @param comp the comparator that is used to compare the elements
          */
         protected <T> void sort(final Comparator<? super T> comp, final T[] data) {
-                var pos = data.length - 1;
+                int pos = data.length - 1;
                 while (pos > 0) {
-                        var border = pos;
+                        int border = pos;
                         pos = 0;
                         take_snapshot(data);
-                        for (var i = 0; i < border; i++) {
+                        for (int i = 0; i < border; i++) {
                                 if (comp.compare(data[i], data[i + 1]) > 0) {
                                         swap(i, i + 1, data);
                                         pos = i;

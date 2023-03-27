@@ -45,8 +45,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.IntStream;
 
-abstract sealed class Sort permits Bubble, Insertion, Merge, Quick, Selection {
+abstract sealed class Sort permits Bubble, Heap, Insertion, Merge, Quick, Selection {
 
         private final List<Object[]> snapshots = new ArrayList<>();
 
@@ -65,6 +66,15 @@ abstract sealed class Sort permits Bubble, Insertion, Merge, Quick, Selection {
          */
         protected <T extends Comparable<? super T>> void sort(final T[] data) {
                 sort(Comparator.naturalOrder(), data);
+        }
+
+        /**
+         * Calls {@link #sort(Comparator, Object[])} with {@link Comparator#reverseOrder()} as comparator.
+         * @param data the data that will be sorted
+         */
+        @SuppressWarnings("unused")
+        protected <T extends Comparable<? super T>> void sort_desc(final T[] data) {
+                sort(Comparator.reverseOrder(), data);
         }
 
         /**
@@ -95,14 +105,15 @@ abstract sealed class Sort permits Bubble, Insertion, Merge, Quick, Selection {
         }
 
         protected void print_snapshots() {
-                var sb = new StringBuilder("{").append(System.lineSeparator());
-                for (var i = 0; i < snapshots.size(); i++) {
-                        if (i < snapshots.size() - 1) {
-                                sb.append(Array_Parser.to_string(snapshots.get(i))).append(",").append(System.lineSeparator());
-                        } else {
-                                sb.append(Array_Parser.to_string(snapshots.get(i))).append(System.lineSeparator()).append("}");
-                        }
-                }
+                StringBuilder sb = new StringBuilder("{").append(System.lineSeparator());
+                IntStream.range(0, snapshots.size())
+                        .forEach(i -> {
+                                if (i < snapshots.size() - 1) {
+                                        sb.append(Array_Parser.to_string(snapshots.get(i))).append(",").append(System.lineSeparator());
+                                } else {
+                                        sb.append(Array_Parser.to_string(snapshots.get(i))).append(System.lineSeparator()).append("}");
+                                }
+                        });
                 System.out.println(sb);
         }
 

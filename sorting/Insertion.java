@@ -40,6 +40,7 @@ package adg.sorting;/*
  */
 
 import java.util.Comparator;
+import java.util.stream.IntStream;
 
 final class Insertion extends Sort {
 
@@ -58,11 +59,10 @@ final class Insertion extends Sort {
          * @param data the data that will be sorted
          */
         protected <T> void sort(final Comparator<? super T> comp, final T[] data) {
-                for (var i = 1; i < data.length; i++) {
+                for (int i = 1; i < data.length; i++) {
                         take_snapshot(data);
-                        for (var j = i; j > 0 && comp.compare((data[j - 1]), (data[j])) > 0; j--) {
-                                swap(j - 1, j, data);
-                        }
+                        IntStream.iterate(i, j -> j > 0 && (comp.compare((data[j - 1]), (data[j])) > 0), j -> j - 1)
+                                .forEach(j -> swap(j - 1, j, data));
                 }
                 take_snapshot(data);
                 print_snapshots();

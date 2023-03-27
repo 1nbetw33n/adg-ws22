@@ -59,7 +59,7 @@ final class Merge extends Sort{
          */
         @SuppressWarnings("unchecked")
         protected <T> void sort(final Comparator<? super T> comp, T[] data) {
-                var tmp = (T[]) new Object[data.length];
+                T[] tmp = (T[]) new Object[data.length];
                 take_snapshot(data);
                 sort(0, data.length, comp, tmp, data);
                 print_snapshots();
@@ -78,7 +78,7 @@ final class Merge extends Sort{
                 if (end - start <= 1) {
                         return;
                 }
-                var mid = (start + end + 1) / 2;
+                int mid = (start + end + 1) / 2;
                 sort(start, mid, comp, tmp, data);
                 sort(mid, end, comp, tmp, data);
                 merge(start, mid, end, comp, tmp, data);
@@ -95,9 +95,9 @@ final class Merge extends Sort{
          * @param data the data that will be sorted
          */
         private <T> void merge(final int start, final int mid, final int end, final Comparator<? super T> comp, T[] tmp, final T[] data) {
-                var left = start;
-                var right = mid;
-                var i = 0;
+                int left = start;
+                int right = mid;
+                int i = 0;
                 while (left < mid && right < end) {
                         tmp[i++] = comp.compare(data[left], data[right]) <= 0 ? data[left++] : data[right++];
                 }

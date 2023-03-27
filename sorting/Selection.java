@@ -59,10 +59,10 @@ final class Selection extends Sort {
      * @param data data that will be sorted
      */
     protected <T> void sort(final Comparator<? super T> comp, final T[] data){
-        for (var i = 0; i < data.length -1; i++) {
+        for (int i = 0; i < data.length -1; i++) {
             take_snapshot(data);
-            var min = i;
-                for (var j = i + 1; j < data.length; j++) {
+            int min = i;
+                for (int j = i + 1; j < data.length; j++) {
                         if (comp.compare(data[min], data[j]) > 0) {min = j;}
                 }
             swap(i, min, data);

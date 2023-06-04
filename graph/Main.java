@@ -65,7 +65,7 @@ final class Main {
 	//TODO: make file reading on demand (only when needed) instead of reading all files at once
 	/**
 	 * Reads the data for the algorithm from the dedicated csv files.
-	 * Initiates the prompt for selecting an algorithm.
+	 * Initiates the prompt for selecting an algorithm.<br>
 	 * Then runs the selected algorithm.
 	 * @param main Main object
 	 * @throws IOException if an I/O error occurs while reading the file(s)
@@ -158,7 +158,7 @@ final class Main {
 		final Search bfs = new BFS();
 		IntStream.range(0, list_adjLists.size())
 			.forEach(i -> {
-				System.out.print("Order for Graph " + (i + 1) + "::\t");
+				System.out.print("Order for Graph " + (i + 1) + " ::\t");
 				System.out.println(format_order_dfsBfs(bfs.sort(list_adjLists.get(i))));
 			});
 	}
@@ -173,7 +173,7 @@ final class Main {
 		final Search sort = new Top_Sort();
 		IntStream.range(0, list_adjLists.size())
 			.forEach(i -> {
-				System.out.print("Order for Graph " + (i + 1) + "::\t");
+				System.out.print("Order for Graph " + (i + 1) + " ::\t");
 				System.out.println(Util.format_order_topologicalSort(sort.sort(list_adjLists.get(i))));
 			});
 	}

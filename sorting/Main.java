@@ -145,7 +145,7 @@ final class Main {
                         case "3" -> new Bubble();
                         case "4" -> new Merge();
                         case "5" -> new Quick();
-                        //case "6": -> new Heap();
+                        //case "6": -> new Heap(); //TODO: implement heap sort
                         default -> null;
                 };
         }

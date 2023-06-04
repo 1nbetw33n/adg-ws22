@@ -45,7 +45,7 @@ final class Top_Sort extends Search{
 
 
 	/**
-	 * Sorts the graph (represented by a list of adjacency lists) topologically.<br>
+	 * Sorts the graph (represented by a list of adjacency lists) topologically in <s>O(n^2)</s> O(n) time (because the variable {@code sorted} is already in ascending order).<br>
 	 * <br>
 	 * Basic logic:<br>
 	 * The nodes of the graph are sorted in a way that all nodes that have an edge to another node are placed before the node they point to.<br>
@@ -54,7 +54,7 @@ final class Top_Sort extends Search{
 	 * This is repeated until all nodes are removed.<br>
 	 * <br>
 	 * In the end each element of the ordered list is mapped to its position in the sorted list.
-	 * <br>.
+	 * <br>
 	 * @param adjLists the adjacency lists of the graph
 	 * @return the topological order of the nodes mapped to their position in the sorted list
 	 */
@@ -83,6 +83,8 @@ final class Top_Sort extends Search{
 	}
 
 	/**
+	 * # Initial retrieval of all nodes that have no incoming edges #<br>
+	 * <br>
 	 * Retrieves all nodes that have no incoming edges.
 	 * @param adjLists the adjacency lists of the graph
 	 * @return a list of nodes that have no incoming edges
@@ -98,7 +100,9 @@ final class Top_Sort extends Search{
 	}
 
 	/**
-	 * Retrieves all nodes that have no incoming edges but only check for the values that were previously removed.
+	 * # More performant retrieval of all nodes without inc edges #<br>
+	 * <br>
+	 * Retrieves all nodes that have no incoming edges but only checking the values that were removed in the previous iteration.
 	 * @param adjLists the adjacency lists of the graph
 	 * @param removed_values the values that were previously removed
 	 * @return a list of nodes that have no incoming edges
@@ -113,25 +117,25 @@ final class Top_Sort extends Search{
 	}
 
 	/**
-	 * Retrieves the smallest unmarked node of the nodes that have no incoming edges.
+	 * Retrieves the smallest unmarked node of the nodes without incoming edges.
 	 * @param no_inc the nodes that have no incoming edges
 	 * @return the smallest unmarked node
 	 */
 	private Object get_smallestUnmarked(final Map<Object, Boolean> no_inc) {
 		return no_inc.keySet()
 			.stream()
-			.filter(key -> !no_inc.get(key))
-			.min(Comparator.comparing(Object::toString))
+			.filter(key -> !no_inc.get(key)) // filter out all marked nodes (marked = true)
+			.min(Comparator.comparing(Object::toString)) // get the smallest unmarked node
 			.orElse(null);
 	}
 
 	/**
 	 * Maps the nodes to their position in the sorted list (the nodes are sorted by their key (in natural order)).<br>
 	 * @param sorted the sorted list of nodes
-	 * @param no_inc the topological sorted nodes
+	 * @param no_inc the topologically sorted list of nodes
 	 * @return the nodes mapped to their position in the sorted list
 	 */
-	private static Map<Object, Object> map_to_positions(final List<Object> sorted, final Map<Object, Boolean> no_inc) {
+	private Map<Object, Object> map_to_positions(final List<Object> sorted, final Map<Object, Boolean> no_inc) {
 		final Object[] keys = no_inc.keySet()
 			.toArray();
 		final Map<Object, Object> map = new HashMap<>();

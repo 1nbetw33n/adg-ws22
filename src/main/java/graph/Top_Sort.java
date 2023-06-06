@@ -34,7 +34,7 @@
  * -will be extended if necessary-
  */
 
-package adg.graph;/*
+package graph;/*
  * Created by 0x1nbetw33n on 14. Mar   2023
  * Virgo Supercluster, Milky Way - Earth A-6847
  */

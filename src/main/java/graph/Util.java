@@ -34,10 +34,12 @@
  * -will be extended if necessary-
  */
 
-package adg.graph;/*
+package graph;/*
  * Created by 0x1nbetw33n on 12. Mar   2023
  * Virgo Supercluster, Milky Way - Earth A-6847
  */
+
+import util.StringFormatter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -48,14 +50,9 @@ import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static misc.util.Util.remove_curlyBraces;
-import static misc.util.Util.remove_doubleQuotes;
 
 final class Util {
 
-        /**
-         * private constructor to prevent instantiation.
-         */
         private Util() {}
 
         /**
@@ -93,10 +90,10 @@ final class Util {
                 final AdjLists adjLists = new AdjLists();
                 final String[] adjListsStrArray = str.split(";"); // adjListsStrArray :: "{a}->{x,y,z}", "{b}->{t,z}"
                 for (final String s : adjListsStrArray) {
-                        final String[] key_value_pair = remove_doubleQuotes(s).split("->"); // key_value_pair :: {a}, {x,y,z}
+                        final String[] key_value_pair = StringFormatter.remove_doubleQuotes(s).split("->"); // key_value_pair :: {a}, {x,y,z}
                         adjLists.add_adjList(
-                                remove_curlyBraces(key_value_pair[0]), // key_value_pair[0] :: a
-                                List.of(remove_curlyBraces(key_value_pair[1]).split(",")) // key_value_pair[1] :: x,y,z
+                                StringFormatter.remove_curlyBraces(key_value_pair[0]), // key_value_pair[0] :: a
+                                List.of(StringFormatter.remove_curlyBraces(key_value_pair[1]).split(",")) // key_value_pair[1] :: x,y,z
                         );
                 }
                 return adjLists;

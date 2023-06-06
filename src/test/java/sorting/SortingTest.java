@@ -34,13 +34,13 @@
  * -will be extended if necessary-
  */
 
-package adg.sorting;
+package sorting;
 
-import misc.util.String_Parser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import util.StringParser;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -100,7 +100,7 @@ final class SortingTest {
         @ParameterizedTest(name = "{2}: {0}")
         @CsvFileSource(resources = "/adg/sorting/selection.csv", numLinesToSkip = 1, delimiter = ';')
         void selection_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc){
-                sort_test(new Selection(), String_Parser.to_intArray(input), String_Parser.to_intArray_2D(exp_snaps));
+                sort_test(new Selection(), StringParser.to_intArray(input), StringParser.to_intArray_2D(exp_snaps));
         }
 
         /**
@@ -112,7 +112,7 @@ final class SortingTest {
         @ParameterizedTest(name = "{2}: {0}")
         @CsvFileSource(resources = "/adg/sorting/insertion.csv", numLinesToSkip = 1, delimiter = ';')
         void insertion_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc) {
-                sort_test(new Insertion(), String_Parser.to_intArray(input), String_Parser.to_intArray_2D(exp_snaps));
+                sort_test(new Insertion(), StringParser.to_intArray(input), StringParser.to_intArray_2D(exp_snaps));
         }
 
         /**
@@ -124,7 +124,7 @@ final class SortingTest {
         @ParameterizedTest(name = "{2}: {0}")
         @CsvFileSource(resources = "/adg/sorting/bubble.csv", numLinesToSkip = 1, delimiter = ';')
         void bubble_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc) {
-                sort_test(new Bubble(), String_Parser.to_intArray(input), String_Parser.to_intArray_2D(exp_snaps));
+                sort_test(new Bubble(), StringParser.to_intArray(input), StringParser.to_intArray_2D(exp_snaps));
         }
 
         /**
@@ -136,7 +136,7 @@ final class SortingTest {
         @ParameterizedTest(name = "{2}: {0}")
         @CsvFileSource(resources = "/adg/sorting/merge.csv", numLinesToSkip = 1, delimiter = ';')
         void merge_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc) {
-                sort_test(new Merge(), String_Parser.to_intArray(input), String_Parser.to_intArray_2D(exp_snaps));
+                sort_test(new Merge(), StringParser.to_intArray(input), StringParser.to_intArray_2D(exp_snaps));
         }
 
         /**
@@ -148,7 +148,7 @@ final class SortingTest {
         @ParameterizedTest(name = "{2}: {0}")
         @CsvFileSource(resources = "/adg/sorting/quick.csv", numLinesToSkip = 1, delimiter = ';')
         void quick_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc) {
-                sort_test(new Quick(), String_Parser.to_intArray(input), String_Parser.to_intArray_2D(exp_snaps));
+                sort_test(new Quick(), StringParser.to_intArray(input), StringParser.to_intArray_2D(exp_snaps));
         }
 
         /**
@@ -160,7 +160,7 @@ final class SortingTest {
         @ParameterizedTest(name = "{2}: {0}")
         @CsvFileSource(resources = "/adg/sorting/asc_heap.csv", numLinesToSkip = 1, delimiter = ';')
         void asc_heap_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc) {
-                sort_test(Comparator.naturalOrder(), new Heap(), String_Parser.to_intArray(input), String_Parser.to_intArray_2D(exp_snaps));
+                sort_test(Comparator.naturalOrder(), new Heap(), StringParser.to_intArray(input), StringParser.to_intArray_2D(exp_snaps));
         }
 
         /**
@@ -172,7 +172,7 @@ final class SortingTest {
         @ParameterizedTest(name = "{2}: {0}")
         @CsvFileSource(resources = "/adg/sorting/desc_heap.csv", numLinesToSkip = 1, delimiter = ';')
         void desc_heap_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc) {
-                sort_test(Comparator.reverseOrder(), new Heap(), String_Parser.to_intArray(input), String_Parser.to_intArray_2D(exp_snaps));
+                sort_test(Comparator.reverseOrder(), new Heap(), StringParser.to_intArray(input), StringParser.to_intArray_2D(exp_snaps));
         }
 
 

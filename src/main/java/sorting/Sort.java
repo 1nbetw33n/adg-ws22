@@ -34,12 +34,12 @@
  * -will be extended if necessary-
  */
 
-package adg.sorting;/*
+package sorting;/*
  * Created by 0x1nbetw33n on 22. Feb   2023
  * Virgo Supercluster, Milky Way - Earth A-6847
  */
 
-import misc.util.Array_Parser;
+import util.ArrayParser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -109,9 +109,10 @@ abstract sealed class Sort permits Bubble, Heap, Insertion, Merge, Quick, Select
                 IntStream.range(0, snapshots.size())
                         .forEach(i -> {
                                 if (i < snapshots.size() - 1) {
-                                        sb.append(Array_Parser.to_string(snapshots.get(i))).append(",").append(System.lineSeparator());
+                                        sb.append(ArrayParser.to_string(snapshots.get(i)))
+                                                .append(",").append(System.lineSeparator());
                                 } else {
-                                        sb.append(Array_Parser.to_string(snapshots.get(i))).append(System.lineSeparator()).append("}");
+                                        sb.append(ArrayParser.to_string(snapshots.get(i))).append(System.lineSeparator()).append("}");
                                 }
                         });
                 System.out.println(sb);

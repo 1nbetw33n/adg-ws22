@@ -34,7 +34,7 @@
  * -will be extended if necessary-
  */
 
-package adg.graph;
+package graph;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -43,7 +43,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static adg.graph.Util.format_order_dfsBfs;
 
 /*
  * Created by 0x1nbetw33n on 13. Mar   2023
@@ -65,7 +64,7 @@ final class GraphTest {
 			IntStream.range(0, adjListsList.size())
 				.forEach(i -> Assertions.assertEquals(
 					dfs_bfs_pairs.get(i).get_pair(search.getClass().getSimpleName()),
-					format_order_dfsBfs(search.sort(adjListsList.get(i)))
+					Util.format_order_dfsBfs(search.sort(adjListsList.get(i)))
 				));
 		} else if (search.getClass().getSimpleName().equals(Top_Sort.class.getSimpleName())) {
 			// TODO: implement

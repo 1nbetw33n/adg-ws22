@@ -34,7 +34,7 @@
  * -will be extended if necessary-
  */
 
-package adg.graph;
+package graph;
 /*
  * Created by 0x1nbetw33n on 13. Mar   2023
  * Virgo Supercluster, Milky Way - Earth A-6847
@@ -46,7 +46,6 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
-import static adg.graph.Util.format_order_dfsBfs;
 
 final class Main {
 
@@ -145,7 +144,7 @@ final class Main {
 		IntStream.range(0, list_adjLists.size())
 			.forEach(i -> {
 				System.out.print("Order for Graph " + (i + 1) + "::\t");
-				System.out.println(format_order_dfsBfs(dfs.sort(list_adjLists.get(i))));
+				System.out.println(Util.format_order_dfsBfs(dfs.sort(list_adjLists.get(i))));
 			});
 	}
 
@@ -159,7 +158,7 @@ final class Main {
 		IntStream.range(0, list_adjLists.size())
 			.forEach(i -> {
 				System.out.print("Order for Graph " + (i + 1) + " ::\t");
-				System.out.println(format_order_dfsBfs(bfs.sort(list_adjLists.get(i))));
+				System.out.println(Util.format_order_dfsBfs(bfs.sort(list_adjLists.get(i))));
 			});
 	}
 

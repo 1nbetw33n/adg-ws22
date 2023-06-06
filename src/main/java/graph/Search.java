@@ -34,28 +34,21 @@
  * -will be extended if necessary-
  */
 
-package adg.sorting;
-
-import java.util.Comparator;
-
-/*
- * Created by 0x1nbetw33n on 21. Mar   2023
+package graph;/*
+ * Created by 0x1nbetw33n on 12. Mar   2023
  * Virgo Supercluster, Milky Way - Earth A-6847
  */
-/**
- * TODO: implement this class
- */
-final class Heap extends Sort {
 
-	//TODO: add javadoc
+import java.util.List;
+
+abstract sealed class Search permits BFS, DFS, Top_Sort {
+
 	/**
-	 *
-	 * @param comp the comparator that is used to compare the elements
-	 * @param data the data that will be sorted
+	 * Framework for graph searching/sorting algorithms.
+	 * @param adjLists the adjacency lists of the graph
+	 * @return the path from the start node to the end node
 	 */
-	protected <T> void sort(final Comparator<? super T> comp, final T[] data) {
-
-	}
+	protected abstract List<Object> sort(final AdjLists adjLists);
 
 
 }

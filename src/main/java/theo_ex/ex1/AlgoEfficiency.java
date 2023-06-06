@@ -34,12 +34,11 @@
  * -will be extended if necessary-
  */
 
-package adg.theo_ex.ex1;/*
+package theo_ex.ex1;/*
  * Created by 0x1nbetw33n on 20. Feb   2023
  * Virgo Supercluster, Milky Way - Earth A-6847
  */
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
 
@@ -64,7 +63,7 @@ final class AlgoEfficiency {
          * @param slower the slower algorithm
          * @param faster the faster algorithm
          */
-        static void alter_runtime(final double altered_ratio, final int border, final String algo1, final String algo2, final @NotNull Function<Double, Double> slower, final @NotNull Function<Double, Double> faster) {
+        static void alter_runtime(final double altered_ratio, final int border, final String algo1, final String algo2, final Function<Double, Double> slower, final Function<Double, Double> faster) {
                 int n = border - 1;
                 double val1;
                 double val2;
@@ -91,7 +90,7 @@ final class AlgoEfficiency {
                 final Function<Double, Double> slower = (f1.apply((double) border) < f2.apply((double) border)) ? f2 : f1;
                 final Function<Double, Double> faster = (f1.apply((double) border) < f2.apply((double) border)) ? f1 : f2;
                 // multiply the ratio with .99 for border=10, .999 for border=100, .9999 for border=1000, etc. to prevent both algorithms from having the same runtime at the border value
-                final double altered_ratio = get_ratio(border, f1, f2) * Double.parseDouble("." + "9".repeat(("" + border).length()));
+                final double altered_ratio = get_ratio(border, f1, f2) * Double.parseDouble("." + "9".repeat((String.valueOf(border)).length()));
                 alter_runtime(altered_ratio,border, algo1, algo2, slower, faster);
         }
 
@@ -102,7 +101,7 @@ final class AlgoEfficiency {
          * @param f2 runtime function of algorithm 2
          * @return the ratio
          */
-        static double get_ratio(final int border, final @NotNull Function<Double, Double> f1, final @NotNull Function<Double, Double> f2) {
+        static double get_ratio(final int border, final Function<Double, Double> f1, final Function<Double, Double> f2) {
                 final Double val1 = f1.apply((double) border);
                 final Double val2 = f2.apply((double) border);
                 return Math.max(val1, val2) / Math.min(val1, val2);

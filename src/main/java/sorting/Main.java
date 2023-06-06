@@ -34,13 +34,11 @@
  * -will be extended if necessary-
  */
 
-package adg.sorting;/*
+package sorting;/*
  * Created by 0x1nbetw33n on 04. Mar   2023
  * Virgo Supercluster, Milky Way - Earth A-6847
  */
 
-import misc.util.String_Parser;
-import misc.util.Util;
 
 import java.util.List;
 import java.util.Objects;
@@ -75,7 +73,6 @@ final class Main {
                 } else if (answer.equalsIgnoreCase("n")) {
                         use_custom_data();
                 } else {
-
                         throw new IllegalArgumentException("Invalid answer :: " + "'" + answer + "'");
                 }
                 select_algo(main);
@@ -105,7 +102,7 @@ final class Main {
                         + System.lineSeparator() + "{1,2,3} or {1, 2, 3}" + System.lineSeparator());
                 String data_str = sc.nextLine();
                 Util.is_valid_sorting_input(data_str); //TODO: allow everything that has a natural order (Strings, chars, numbers, etc.)
-                data = String_Parser.to_intArray(data_str);
+                data = util.StringParser.to_intArray(data_str);
         }
 
         /**

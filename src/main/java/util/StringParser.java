@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
  * Created by 0x1nbetw33n on 06. Jun   2023
  * Virgo Supercluster, Milky Way - Earth A-6847
  */
+
 public final class StringParser {
 
     private StringParser() {}

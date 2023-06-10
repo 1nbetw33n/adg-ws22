@@ -9,6 +9,7 @@ import java.util.Random;
  * Created by 0x1nbetw33n on 06. Jun   2023
  * Virgo Supercluster, Milky Way - Earth A-6847
  */
+
 final class Util {
 
     private Util() {}

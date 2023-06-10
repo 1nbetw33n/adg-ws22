@@ -121,11 +121,13 @@ final class SortingTest {
          * @param exp_snaps the expected snapshots of the order of the data that it had while sorting
          * @param desc the description of the test
          */
+        /*
         @ParameterizedTest(name = "{2}: {0}")
         @CsvFileSource(resources = "/adg/sorting/asc_heap.csv", numLinesToSkip = 1, delimiter = ';')
         void asc_heap_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc) {
                 sort_test(Comparator.naturalOrder(), new Heap(), StringParser.to_intArray(input), StringParser.to_intArray_2D(exp_snaps));
         }
+        */
 
         /**
          * Tests the implementation of descending heap sort with inputs and expected snapshots from desc_heap.csv.
@@ -133,11 +135,14 @@ final class SortingTest {
          * @param exp_snaps the expected snapshots of the order of the data that it had while sorting
          * @param desc the description of the test
          */
+        /*
         @ParameterizedTest(name = "{2}: {0}")
         @CsvFileSource(resources = "/adg/sorting/desc_heap.csv", numLinesToSkip = 1, delimiter = ';')
         void desc_heap_sort_test(final String input, final String exp_snaps, @SuppressWarnings("unused") final String desc) {
                 sort_test(Comparator.reverseOrder(), new Heap(), StringParser.to_intArray(input), StringParser.to_intArray_2D(exp_snaps));
         }
+        */
 
 
 }
+

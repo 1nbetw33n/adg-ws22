@@ -4,7 +4,9 @@
 <div>
 <details>
 <summary><h2>Sorting Algorithms</h2></summary>
-To use the algorithms you can use <kbd>Main.java</kbd> in :: [sorting](https://github.com/1nbetw33n/adg-ws22/tree/main/src/main/java/sorting)<br>
+To use the algorithms in an interactive terminal you can use <kbd>Main.java</kbd> in <br>
+https://github.com/1nbetw33n/adg-ws22/tree/main/src/main/java/adg/sorting <br>
+<br>
 The sorting algorithms will produce the different states that occured while performing the algorithm.<br>
 for example ::<br>
 <kbd>{12, 13, 24, 33, 20, 17, 29, 19, 11, 8}</kbd> with <kbd>merge sort</kbd> will produce the following output ::<br>
@@ -31,7 +33,9 @@ The following algorithms are implemented and extensively tested ::<br>
 </details>
 <details>
 <summary><h2>Graph Algorithms</h2></summary>
-To use the algorithms you can use <kbd>Main.java</kbd> in :: <kbd>src/main/java/adg/graph</kbd><br>
+To use the algorithms in an interactive terminal you can use <kbd>Main.java</kbd> in <br>
+https://github.com/1nbetw33n/adg-ws22/tree/main/src/main/java/adg/graph <br>
+<br>
 The graph algorithms will provide the order in which the nodes are visited.<br>
 for example ::<br>
 <kbd>The Adjacency List</kbd> 
